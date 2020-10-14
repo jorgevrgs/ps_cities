@@ -28,7 +28,16 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-class Ps_cities extends CarrierModule
+// use PrestaShop\PrestaShop\Core\Grid\Definition\GridDefinitionInterface;
+// use PrestaShop\PrestaShop\Core\Search\Filters\CustomerFilters;
+// use Doctrine\DBAL\Query\QueryBuilder;
+// use Symfony\Component\Form\FormBuilderInterface;
+
+// require_once _PS_MODULE_DIR_.'ps_cities/models/City.php';
+// require_once _PS_MODULE_DIR_.'ps_cities/models/CityAddress.php';
+require_once _PS_MODULE_DIR_.'ps_cities/vendor/autoload.php';
+
+class Ps_cities extends Module
 {
     protected $config_form = false;
     protected $tabs = [
@@ -44,7 +53,7 @@ class Ps_cities extends CarrierModule
     public function __construct()
     {
         $this->name = 'ps_cities';
-        $this->tab = 'shipping_logistics';
+        $this->tab = 'front_office_features';
         $this->version = '0.0.1';
         $this->author = 'Jorge Vargas';
         $this->need_instance = 0;
@@ -78,7 +87,7 @@ class Ps_cities extends CarrierModule
 
         $return &= $this->installTabs();
 
-        include dirname(__FILE__).'/sql/install.php';
+        // include dirname(__FILE__).'/sql/install.php';
 
         $hooks = [
             'displayHeader',
@@ -108,9 +117,7 @@ class Ps_cities extends CarrierModule
 
     public function uninstall()
     {
-        Configuration::deleteByName('PS_CITIES_LIVE_MODE');
-
-        include(dirname(__FILE__).'/sql/uninstall.php');
+        // include(dirname(__FILE__).'/sql/uninstall.php');
 
         return parent::uninstall();
     }
@@ -322,7 +329,9 @@ class Ps_cities extends CarrierModule
 
     public function hookDisplayHeader()
     {
-        /* Place your code here. */
+        $this->context->controller->addJS($this->_path.'/views/js/front.js');
+        $this->context->controller->addCSS($this->_path.'/views/css/front.css');
+        Media::AddJsDef(['cities_controller' => $this->context->link->getModuleLink('ps_cities', 'cities')]);
     }
 
     /**
