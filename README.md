@@ -2,11 +2,21 @@
 
 Cities module for PrestaShop 1.7.7.X
 
-## PrestaShop 1.7.7
+## Install
+
+Clone the module:
+
+`git clone https://github.com/jorgevrgs/ps_cities.git`
+
+Run composer:
+
+`composer dump-autoload`
+
+Then upload to your `/modules` path.
 
 Install and configure cities in `International` - `Locations` - `Cities` tab.
 
-## PrestaShop 1.7.0 - 1.7.6
+## PrestaShop 1.7.5 - 1.7.6
 
 Modify the file `classes/form/CustomerAddressFormatter.php`:
 
